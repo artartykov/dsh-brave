@@ -1,0 +1,17 @@
+# Bundle layer for dsh-brave, applied after dsh-base / dsh-web-app.
+#
+# 1. Mount the Brave provider (registers as search provider "brave").
+# 2. Pin web search to it. dsh-base pins `searchProvider: deepseek-official`, and an
+#    id-targeted patch replaces the whole config, so `fetchProvider` is restated.
+#    Turning this bundle off restores the dsh-base selection.
+- insert:
+    - id: web-search-brave
+      name: 'dsh-brave'
+      config:
+        apiKeyEnv: BRAVE_API_KEY
+
+- id: web
+  name: '@deepseek-ai/dsh-web'
+  config:
+    searchProvider: brave
+    fetchProvider: http
